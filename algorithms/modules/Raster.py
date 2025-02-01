@@ -71,6 +71,10 @@ class Raster:
 
         gt=gdal_raster.GetGeoTransform()
         self.pix = gt[1] 
+        unit_name = gdal_raster.GetSpatialRef().GetAngularUnitsName()
+        if unit_name == "degree":
+            self.pix_m = gt[1]*111320 # deg2m @ lat
+        else: self.pix_m = gt[1]
                 
         raster_x_min = gt[0]
         raster_y_max = gt[3] # it's top left y, so maximum!
@@ -144,7 +148,7 @@ class Raster:
         
         
         self.radius = radius
-        radius_pix = int(radius/self.pix)
+        radius_pix = int(radius/self.pix_m)
         self.radius_pix = radius_pix
         
         full_size = radius_pix *2 +1

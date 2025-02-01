@@ -536,7 +536,7 @@ def visibility_index (raster, obs_height,
     ysize, xsize = data.shape
     
     # pixel distances
-    radius = raster.radius / raster.pix
+    radius = raster.radius / raster.pix_m
 
     d = int(radius)
 
